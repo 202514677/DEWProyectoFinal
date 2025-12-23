@@ -1,5 +1,18 @@
 import { useEffect, useState } from "react";
 
+const CATEGORIAS = [
+  "Alimentación",
+  "Transporte",
+  "Salud",
+  "Educación",
+  "Entretenimiento",
+  "Servicios",
+  "Compras",
+  "Hogar",
+  "Trabajo",
+  "Otros"
+];
+
 export default function NuevoMovimiento({ onSave, editando }) {
   const vacio = { tipo: "Ingreso", categoria: "", descripcion: "", monto: "", fecha: "" };
   const [form, setForm] = useState(vacio);
@@ -7,6 +20,7 @@ export default function NuevoMovimiento({ onSave, editando }) {
   useEffect(() => {
     if (editando) setForm(editando);
     else setForm(vacio);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editando]);
 
   function submit(e) {
@@ -32,16 +46,23 @@ export default function NuevoMovimiento({ onSave, editando }) {
       <h2>{editando ? "Editar Movimiento" : "Nuevo Movimiento"}</h2>
 
       <form onSubmit={submit}>
-        <select value={form.tipo} onChange={e => setForm({ ...form, tipo: e.target.value })}>
+        <select
+          value={form.tipo}
+          onChange={e => setForm({ ...form, tipo: e.target.value })}
+        >
           <option value="Ingreso">Ingreso</option>
           <option value="Gasto">Gasto</option>
         </select>
 
-        <input
-          placeholder="Categoría (ej: Alimentación)"
+        <select
           value={form.categoria}
           onChange={e => setForm({ ...form, categoria: e.target.value })}
-        />
+        >
+          <option value="">-- Seleccione categoría --</option>
+          {CATEGORIAS.map(cat => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
 
         <input
           placeholder="Descripción"
