@@ -8,8 +8,12 @@ export default function Login({ setView }) {
 
   function ingresar(e) {
     e.preventDefault();
-    if (login(username, password)) setView("dashboard");
-    else alert("Credenciales incorrectas");
+
+    if (login(username, password)) {
+      setView("dashboard");
+    } else {
+      alert("Credenciales incorrectas");
+    }
   }
 
   return (
@@ -17,12 +21,22 @@ export default function Login({ setView }) {
       <h2>Ingreso al sistema</h2>
 
       <form onSubmit={ingresar}>
-        <input placeholder="Usuario" value={username} onChange={e => setUsername(e.target.value)} />
-        <input type="password" placeholder="Clave" value={password} onChange={e => setPassword(e.target.value)} />
-        <button className="primary" type="submit">Ingresar</button>
-        <p style={{ marginTop: 10, color: "#6b7280" }}>
-          Usuarios: admin/1234, juan/1234, ana/1234
-        </p>
+        <input
+          placeholder="Usuario"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+        />
+
+        <input
+          type="password"
+          placeholder="Clave"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+
+        <button className="primary" type="submit">
+          Ingresar
+        </button>
       </form>
     </div>
   );
